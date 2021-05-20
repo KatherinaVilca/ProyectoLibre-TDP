@@ -141,25 +141,26 @@ public class Gui_WS extends JFrame {
 		comboBox.addItem("Ingles");
 		comboBox.addItem("Español");
 		
-		comboBox.addActionListener(new ActionListener() {//add actionlistner to listen for change
+		comboBox.addActionListener(new ActionListener() {
 	            
 	            public void actionPerformed(ActionEvent e) {
 
-	                String s = (String) comboBox.getSelectedItem();//get the selected item
+	                String s = (String) comboBox.getSelectedItem();
 
 	                switch (s) {//check for a match
 	                    case "Ingles":
-	                       traductor.getInstance().changeE();
+	                      traductor.changeE();
 	      
 	                       cambiarTitulos();
 	                        break;
 	                    case "Español":
-	                       traductor.getInstance().changeS();
+	                        
+	                       traductor.changeS();
 	                       cambiarTitulos();
 	                        break;
 	                  
 	                    default:
-	                    
+	                
 	                        break;
 	                }
 	            }
@@ -213,10 +214,7 @@ public class Gui_WS extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 
-				if( e.getValueIsAdjusting()) {
-					
-					return;
-				}
+				
 				int in= e.getFirstIndex() ;
 				String s = (String) list_1.getModel().getElementAt(in);
 				
@@ -241,7 +239,9 @@ public class Gui_WS extends JFrame {
 	}
 	
 	private void cambiarTitulos() {
+		
 		Traductor t= Traductor.getInstance();
+		System.out.println(t.obtenerPalabra(PalabrasClave.CARGAR));
 		btnNewButton.setText(t.obtenerPalabra(PalabrasClave.CARGAR));
 		
 		btnNewButton_1.setText(t.obtenerPalabra(PalabrasClave.VER));

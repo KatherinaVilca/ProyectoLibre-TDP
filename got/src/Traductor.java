@@ -25,10 +25,14 @@ public class Traductor {
 	
 	public void changeE() {
 		 tr = new TraductorIngles();
+		 System.out.println(tr.obtenerTraduccion(PalabrasClave.VER));
 	}
 	
 	public void changeS() {
 		
-		tr= new TraductorEspañol();		
+		
+		tr= new TraductorEspañol();	
+		 System.out.println(tr.obtenerTraduccion(PalabrasClave.VER));
+	
 	}
 }

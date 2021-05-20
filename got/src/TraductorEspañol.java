@@ -8,6 +8,8 @@ public class TraductorEspañol implements TraductorIdiomas{
 	private HashMap<PalabrasClave,String> dicc;
 	
 	public TraductorEspañol() {
+		
+		
 		dicc= new HashMap<PalabrasClave,String>();
 		
 		dicc.put(PalabrasClave.CARGAR, "Cargar directorio");

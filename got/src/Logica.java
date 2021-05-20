@@ -20,7 +20,7 @@ public class Logica {
 		
 	}
 
-	// Anda perfecto
+
 	public String seleccionArchivo(File f) {
 		
 		arch = new Archivo( f);
