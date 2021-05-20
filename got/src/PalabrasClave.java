@@ -4,6 +4,7 @@ public enum PalabrasClave {
 
 	CARGAR,
 	COMENZAR ,
-	ELEGIR_ARCHIVO;
+	ELEGIR_ARCHIVO,
+	VER;
 	
 }

@@ -19,9 +19,9 @@ public class Archivo extends Component {
 	public String archivo;
 	//HashMap<String, Integer> palabrasArchivo;
 	
-	public Archivo(String archivo) {
+	public Archivo(File f) {
 		
-		super(archivo);
+		super(f.getAbsolutePath());
 		//palabrasArchivo = new HashMap<String,Integer>();
 		
 		
@@ -31,12 +31,6 @@ public class Archivo extends Component {
 	public void agregarArchivo() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public List<Archivo> obtenerArchivos() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

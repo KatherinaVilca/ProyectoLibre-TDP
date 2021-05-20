@@ -28,7 +28,7 @@ public class GestionPalabras {
 		lista= new LinkedList<Map.Entry<String, Integer>> (palabrasArchivo.entrySet());
 		Collections.sort(lista, new Comparador() );
 
-	}}
+	}
 	
 	public String listaPalabras(int cantidad) {
 	

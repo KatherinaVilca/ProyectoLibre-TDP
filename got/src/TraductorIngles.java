@@ -12,6 +12,7 @@ public class TraductorIngles implements TraductorIdiomas{
 		dicc.put(PalabrasClave.CARGAR, "Select directories");
 		dicc.put(PalabrasClave.COMENZAR, "Start");
 		dicc.put(PalabrasClave.ELEGIR_ARCHIVO,"Choose file");
+		dicc.put(PalabrasClave.VER,"Show all");
 	}
 	
 	public String obtenerTraduccion(PalabrasClave p) {

@@ -23,8 +23,7 @@ public abstract class Component {
 
 	
 	protected abstract void agregarArchivo();
-	
-	protected abstract List<Archivo> obtenerArchivos();
+
 	
 	protected abstract void cargarPalabras(HashMap<String, Integer> palabrasArchivo);
 

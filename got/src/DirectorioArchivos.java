@@ -36,7 +36,7 @@ public class DirectorioArchivos extends Component{
 		for(int i=0; i<allArchivos.length; i++) {
 			
 			
-			arch.add( new Archivo (path+barra+allArchivos[i]) );
+			arch.add( new Archivo (  new File(path+barra+allArchivos[i]) ) );
 		}
 	}
 	
@@ -47,10 +47,16 @@ public class DirectorioArchivos extends Component{
 		
 	}
 
-	@Override
-	public List<Archivo> obtenerArchivos() {
-		// TODO Auto-generated method stub
-		return null;
+	public String []  obtenerArchivos() {
+	
+		String [] archivos = new String [ arch.size()];
+		
+		for( int index = 0; index<arch.size(); index++) {
+			
+			archivos[index] = arch.get(index).getP();			 
+		}  
+		
+		return archivos;
 	}
 
 	@Override

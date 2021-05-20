@@ -18,7 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import javax.swing.JInternalFrame;
@@ -44,6 +45,11 @@ public class Gui_WS extends JFrame {
 	private JPanel panel_5;
 	private JComboBox comboBox;
 	private JButton btnNewButton;
+	private JList list_1;
+	private String sel;
+	JButton  btnNewButton_1;
+	private JButton btnNewButton_2;
+	private File elegido;
 	
 	/**
 	 * Launch the application.
@@ -106,7 +112,18 @@ public class Gui_WS extends JFrame {
 		JPanel panel_JFileChooser = new JPanel();
 		panel_JFileChooser.setBounds(10, 25, 283, 232);
 		panel_3.add(panel_JFileChooser);
-		panel.setSize(1, 60);
+		
+		list_1 = new JList();
+		panel_JFileChooser.add(list_1);
+		
+		btnNewButton_1 = new JButton(traductor.obtenerPalabra(PalabrasClave.VER));
+		btnNewButton_1.setBounds(319, 236, 85, 21);
+		panel_3.add(btnNewButton_1);
+		
+		btnNewButton_2 = new JButton(traductor.obtenerPalabra(PalabrasClave.COMENZAR));
+		btnNewButton_2.setBounds(319, 70, 85, 21);
+		panel_3.add(btnNewButton_2);
+		
 		
 		textPane = new JTextPane();
 		panel_2.add(textPane);
@@ -133,9 +150,12 @@ public class Gui_WS extends JFrame {
 	                switch (s) {//check for a match
 	                    case "Ingles":
 	                       traductor.getInstance().changeE();
+	      
+	                       cambiarTitulos();
 	                        break;
 	                    case "Español":
 	                       traductor.getInstance().changeS();
+	                       cambiarTitulos();
 	                        break;
 	                  
 	                    default:
@@ -168,24 +188,65 @@ public class Gui_WS extends JFrame {
 				        if (respuesta == JFileChooser.APPROVE_OPTION) {
 				       
 				        	
-				            File elegido = selector.getSelectedFile();
+				           elegido = selector.getSelectedFile();
+				    
 				            
-				            //System.out.println(logica.seleccionCarpeta(elegido));
-				            textPane.setText(logica.seleccionCarpeta(elegido));
-					}
+				        }
 				
 				
 			}
 		});
 		
+	btnNewButton_2.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+			
+		  sel=logica.seleccionCarpeta(elegido);
+          textPane.setText(sel);
+          list_1.setListData( ( Object[] ) logica.cargarArchi());
+			}
+	}
+	);
 		
+		list_1.addListSelectionListener(new ListSelectionListener () {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+
+				if( e.getValueIsAdjusting()) {
+					
+					return;
+				}
+				int in= e.getFirstIndex() ;
+				String s = (String) list_1.getModel().getElementAt(in);
+				
+				File  f= new File(s);
+				textPane.setText(logica.seleccionArchivo(f));
+
+				
+			}
+			
+			
+		});
 		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				textPane.setText(sel);		
+				
+			}
+		});
 		
-		
-	        
 	}
 	
-	private void iniciarJFileChooser() {
-
+	private void cambiarTitulos() {
+		Traductor t= Traductor.getInstance();
+		btnNewButton.setText(t.obtenerPalabra(PalabrasClave.CARGAR));
+		
+		btnNewButton_1.setText(t.obtenerPalabra(PalabrasClave.VER));
+		
+		btnNewButton_2.setText(t.obtenerPalabra(PalabrasClave.COMENZAR));
+		
 	}
 }

@@ -13,6 +13,7 @@ public class TraductorEspañol implements TraductorIdiomas{
 		dicc.put(PalabrasClave.CARGAR, "Cargar directorio");
 		dicc.put(PalabrasClave.COMENZAR, "Comenzar");
 		dicc.put(PalabrasClave.ELEGIR_ARCHIVO,"Elegir Archivo");
+		dicc.put(PalabrasClave.VER,"Ver todas");
 	}
 	
 	public String obtenerTraduccion(PalabrasClave p) {

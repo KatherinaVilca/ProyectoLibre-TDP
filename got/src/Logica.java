@@ -5,13 +5,15 @@ import java.util.HashMap;
 
 public class Logica {
 	
+	private DirectorioArchivos carpeta;
+	private Archivo arch;
 	public Logica() {
 		
 	}
 	
 	public String seleccionCarpeta(File file) {
 		
-		DirectorioArchivos carpeta = new DirectorioArchivos(file);
+		carpeta = new DirectorioArchivos(file);
 		HashMap<String, Integer> palabrasArchivo = new HashMap<String,Integer>();
 		carpeta.cargarPalabras(palabrasArchivo);
 		return carpeta.obtenerParabrasMasUsadasDirectorio(10, palabrasArchivo);
@@ -19,9 +21,9 @@ public class Logica {
 	}
 
 	// Anda perfecto
-	public String seleccionArchivo(File file) {
-		String c= file.getAbsolutePath();
-		Archivo arch = new Archivo(c);
+	public String seleccionArchivo(File f) {
+		
+		arch = new Archivo( f);
 		HashMap<String, Integer> palabrasArchivo = new HashMap<String,Integer>();
 		arch.cargarPalabras(palabrasArchivo);
 		
@@ -30,7 +32,7 @@ public class Logica {
 	}
 	
 	
-	public String cargarArchi() {
-		return null;
+	public String[] cargarArchi() {
+		return carpeta.obtenerArchivos();
 	}
 }
