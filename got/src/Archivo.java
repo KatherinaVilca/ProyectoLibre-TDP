@@ -15,19 +15,21 @@ public class Archivo extends Component {
 	public Archivo(File f) {
 		
 		super(f.getAbsolutePath());
+		totalPalabras = 0;
 	}
 
-	public String obtenerParabrasMasUsadasArchivo(int cantidad,HashMap<String, Integer> palabrasArchivo) {
+	public String obtenerPalabrasMasUsadasArchivo(int cantidad,HashMap<String, Integer> palabrasArchivo,int  cantidadPalabrasArchivo) {
 		
-		GestionPalabras gp = new GestionPalabras (totalPalabras);
+		GestionPalabras gp = new GestionPalabras ();
 		gp.ordenarHash(palabrasArchivo);
-		
-		return gp.listaPalabras(cantidad);	
+		System.out.println(" es arch que tamaño tiene? "+palabrasArchivo.size());
+		return gp.listaPalabras(cantidad, cantidadPalabrasArchivo);	
 	}
 		
-	public void cargarPalabras(HashMap<String, Integer> palabrasArchivo) {
+	public int cargarPalabras(HashMap<String, Integer> palabrasArchivo) {
 		
 		boolean encontre = false;
+		int cantidadPalabras = 0;
 		
 	try {	
 			BufferedReader br= new BufferedReader(new FileReader(path));
@@ -42,7 +44,7 @@ public class Archivo extends Component {
 				while ( j< palabras.size()) {
 			
 					String palabra = palabras.get(j);
-					totalPalabras= totalPalabras+1;  
+					cantidadPalabras = cantidadPalabras+1;  
 					
 					for( int i= 0; i < palabrasArchivo.keySet().toArray().length && !encontre; i++) { 
 				
@@ -84,6 +86,8 @@ public class Archivo extends Component {
 			} catch (IOException e) {
 				e.printStackTrace();
 				}
+	
+		return cantidadPalabras;
 	}
 
 	private boolean sonIguales (char [] arrayPalabra, char[]arrayKey) {
@@ -128,7 +132,7 @@ public class Archivo extends Component {
 			for ( ; ( s && i<c.length); i++) {
 				
 				char leido = c[i];
-				System.out.println("leido: "+leido);
+				//System.out.println("leido: "+leido);
 				if( esCaracterValido( leido )) {
 					
 					p+= Character.toString(leido);	
@@ -155,7 +159,7 @@ public class Archivo extends Component {
 		
 		 if (! (   (c>= 'Ç' && c<='Ü' ) || (c>= 'á' && c<='Ñ' ) || (c>= 'Á' && c<='À' ) || (c== 'ã' || c=='Ã' ) || (c>= 'ð' && c<='Ï' ) || (c>= 'Ú' && c<='Ý' ) || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') )   ) { 
 			 ret = false;
-			 System.out.println("no valido: "+ret);
+			// System.out.println("no valido: "+ret);
 		 }
 		return ret;
 	}

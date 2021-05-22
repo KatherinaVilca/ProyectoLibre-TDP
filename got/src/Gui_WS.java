@@ -1,18 +1,12 @@
 package src;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -25,17 +19,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
-import javax.swing.JInternalFrame;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JList;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import javax.swing.JComboBox;
-import javax.swing.AbstractListModel;
 
 public class Gui_WS extends JFrame {
 
@@ -93,7 +81,7 @@ public class Gui_WS extends JFrame {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 543, 567);
+		setBounds(100, 100, 526, 567);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -124,7 +112,7 @@ public class Gui_WS extends JFrame {
 		
 		
 		botonMostrarPrincipal = new JButton(traductor.obtenerPalabra(PalabrasClave.VER));
-		botonMostrarPrincipal.setBounds(223, 207, 115, 21);
+		botonMostrarPrincipal.setBounds(218, 193, 115, 21);
 		botonMostrarPrincipal.setEnabled(false);
 		panel_3.add(botonMostrarPrincipal);
 		
@@ -147,16 +135,21 @@ public class Gui_WS extends JFrame {
 		scrollVisorArchivos.setBounds(20, 48, 181, 166);
 		panel_3.add(scrollVisorArchivos);
 		
-			
+		
 		textPane = new JTextPane();
-		panel_2.add(textPane);
+		textPane.setEditable(false);
+		panel_2.add(textPane);		
+		scrollTextPane = new JScrollPane(textPane);
+		scrollTextPane.setBounds(20, 238, 228, 228);
+		panel_3.add(scrollTextPane);
+		
 		
 		
 		panel_5 = new JPanel();
 		panel_5.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 50));
 		contentPane.add(panel_5, BorderLayout.EAST);
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<String>();
 		comboBox.setEditable(true);
 		comboBox.setSize(1500, 900);
 		panel_5.add(comboBox);
@@ -202,7 +195,6 @@ public class Gui_WS extends JFrame {
 							
 				selector.setCurrentDirectory(new File("."));
 				selector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				//selector.setFileFilter(f);
 						       
 		        int respuesta = selector.showOpenDialog(Gui_WS.this);
 		      
@@ -222,7 +214,7 @@ public class Gui_WS extends JFrame {
 		          }
 		          else {
 		        	  	botonComenzar.setEnabled(false);
-		          		JOptionPane.showMessageDialog(null, "Seleccione una carpeta que unicamente contenta archivos txt", "Error", respuesta);
+		          		JOptionPane.showMessageDialog(null, "Seleccione una carpeta que contenga archivos txt", "Error", respuesta);
 		          		} 
 		        }
 			}

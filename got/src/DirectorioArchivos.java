@@ -29,22 +29,25 @@ public class DirectorioArchivos extends Component{
 		return archivos;
 	}
 
-	public void cargarPalabras(HashMap<String, Integer> palabrasArchivo) {
+	public int cargarPalabras(HashMap<String, Integer> palabrasArchivo) {
+		int cantidadPalabras = 0; 
 		
 		for( int h=0; h<arch.size(); h++) {
 			
 			Archivo a= arch.get(h);
-			a.cargarPalabras(palabrasArchivo);
+			cantidadPalabras = a.cargarPalabras(palabrasArchivo);
 
 		}
+		return cantidadPalabras;
 	}
 
-	public String obtenerParabrasMasUsadasDirectorio(int cantidad, HashMap<String, Integer> palabrasArchivo ) {
+	public String obtenerParabrasMasUsadasDirectorio(int cantidad, HashMap<String, Integer> palabrasArchivo, int cantidadPalabrasCarpeta ) {
 		
-		GestionPalabras gp = new GestionPalabras(palabrasArchivo.size());
+		GestionPalabras gp = new GestionPalabras();
 		gp.ordenarHash(palabrasArchivo);
+		System.out.println(" es direc que tamaño tiene? "+palabrasArchivo.size());
 		
-		return gp.listaPalabras(cantidad);
+		return gp.listaPalabras(cantidad,cantidadPalabrasCarpeta);
 	}
 	
 	public boolean contieneTxt() {

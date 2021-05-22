@@ -8,6 +8,8 @@ public class Logica {
 	private DirectorioArchivos carpeta;
 	private Archivo arch;
 	private HashMap<String, Integer> palabrasArchivosCarpeta;
+	private int cantidadPalabrasCarpeta ;
+	private int cantidadPalabrasArchivo;
 	
 	public Logica() {	}
 	
@@ -20,14 +22,14 @@ public class Logica {
 		if( esValido) {
 			
 			palabrasArchivosCarpeta = new HashMap<String,Integer>();
-			carpeta.cargarPalabras(palabrasArchivosCarpeta);
+			cantidadPalabrasCarpeta = carpeta.cargarPalabras(palabrasArchivosCarpeta);
 		}
 		
 		return esValido;			
 	}
 	
 	public String obtenerPalabrasMasUsadasDirectorio(int cantidad) {
-		return carpeta.obtenerParabrasMasUsadasDirectorio(5, palabrasArchivosCarpeta);
+		return carpeta.obtenerParabrasMasUsadasDirectorio(5, palabrasArchivosCarpeta,cantidadPalabrasCarpeta);
 	}
 
 
@@ -35,9 +37,9 @@ public class Logica {
 		
 		arch = new Archivo( f);
 		HashMap<String, Integer> palabrasArchivo = new HashMap<String,Integer>();
-		arch.cargarPalabras(palabrasArchivo);
+		cantidadPalabrasArchivo = arch.cargarPalabras(palabrasArchivo);
 		
-		return arch.obtenerParabrasMasUsadasArchivo(100,palabrasArchivo);
+		return arch.obtenerPalabrasMasUsadasArchivo(5,palabrasArchivo, cantidadPalabrasArchivo );
 	
 	}
 	

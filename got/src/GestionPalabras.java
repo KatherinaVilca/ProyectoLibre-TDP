@@ -15,10 +15,9 @@ import java.util.Map.Entry;
 public class GestionPalabras {
 	
 	private List<Map.Entry<String, Integer>> lista;
-	private int total;
 
-	public GestionPalabras(int totalPalabras) {
-		total= totalPalabras;
+
+	public GestionPalabras() {
 	}
 	
 
@@ -30,7 +29,7 @@ public class GestionPalabras {
 
 	}
 	
-	public String listaPalabras(int cantidad) {
+	public String listaPalabras(int cantidad, int cantidadPalabrasCarpeta) {
 	
 		String masUsadas="";
 		int index=0;
@@ -39,16 +38,18 @@ public class GestionPalabras {
 		while (iterador.hasNext() && index<cantidad )  { 
 		
 			 Map.Entry<String,Integer> entrada =  iterador.next ();  
-			 masUsadas+= entrada.getKey()+ " aparece un total de: "+ porcentaje( entrada.getValue(), total)+" % ";
+			 masUsadas+= entrada.getKey()+ " aparece un total de: "+ porcentaje( entrada.getValue(), cantidadPalabrasCarpeta)+" % ";
 			 masUsadas+= '\n';
 			 index= index+1;
 			 
+			 System.out.println("clave: "+entrada.getKey()+" valor: "+entrada.getValue());
+			 System.out.println("que tamalo tengo aca: "+lista.size());
 		}
 		return masUsadas;
 
 	}
 	
-	private double porcentaje(Integer cant, int total) {
+	private float porcentaje(Integer cant, int total) {
 		return (cant*100) / total;
 	}
 		

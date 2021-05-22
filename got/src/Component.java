@@ -15,6 +15,6 @@ public abstract class Component {
 		 
 	}
 	
-	protected abstract void cargarPalabras(HashMap<String, Integer> palabrasArchivo);
+	protected abstract int cargarPalabras(HashMap<String, Integer> palabrasArchivo);
 
 }
