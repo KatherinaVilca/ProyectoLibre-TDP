@@ -2,8 +2,7 @@ package src;
 
 public class Traductor {
 	
-	
-	//SINGLETON
+
 	private static Traductor singleton;
 	private TraductorIdiomas tr ;
 	
@@ -20,19 +19,18 @@ public class Traductor {
 	}
 
 	public String obtenerPalabra(PalabrasClave p) {
+	
 		return tr.obtenerTraduccion(p);
 	}
 	
-	public void changeE() {
+	public void changeIngles() {
+		
 		 tr = new TraductorIngles();
-		 System.out.println(tr.obtenerTraduccion(PalabrasClave.VER));
 	}
 	
-	public void changeS() {
-		
+	public void changeEspañol() {
 		
 		tr= new TraductorEspañol();	
-		 System.out.println(tr.obtenerTraduccion(PalabrasClave.VER));
 	
 	}
 }

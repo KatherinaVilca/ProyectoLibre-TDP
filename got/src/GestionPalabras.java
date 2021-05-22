@@ -32,23 +32,18 @@ public class GestionPalabras {
 	
 	public String listaPalabras(int cantidad) {
 	
-		String masUsadas=" ";
-		
+		String masUsadas="";
 		int index=0;
-		
 		Iterator<Entry<String, Integer>> iterador = lista.iterator();
-		
 		
 		while (iterador.hasNext() && index<cantidad )  { 
 		
-			
 			 Map.Entry<String,Integer> entrada =  iterador.next ();  
 			 masUsadas+= entrada.getKey()+ " aparece un total de: "+ porcentaje( entrada.getValue(), total)+" % ";
 			 masUsadas+= '\n';
 			 index= index+1;
 			 
-		}  
-		
+		}
 		return masUsadas;
 
 	}
@@ -56,6 +51,5 @@ public class GestionPalabras {
 	private double porcentaje(Integer cant, int total) {
 		return (cant*100) / total;
 	}
-	
-	
+		
 }

@@ -5,100 +5,73 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 
 public class Archivo extends Component {
 
 	public String archivo;
-	//HashMap<String, Integer> palabrasArchivo;
 	
 	public Archivo(File f) {
 		
 		super(f.getAbsolutePath());
-		//palabrasArchivo = new HashMap<String,Integer>();
-		
-		
 	}
-
-	@Override
-	public void agregarArchivo() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	public String obtenerParabrasMasUsadasArchivo(int cantidad,HashMap<String, Integer> palabrasArchivo) {
-		
-		String masUsadas=" ";
 		
 		GestionPalabras gp = new GestionPalabras (totalPalabras);
 		gp.ordenarHash(palabrasArchivo);
 		
-	return gp.listaPalabras(cantidad);
+		return gp.listaPalabras(cantidad);	
+	}
 		
-	}
-	
-	public String getP() {
-		return path;
-	}
-	
 	public void cargarPalabras(HashMap<String, Integer> palabrasArchivo) {
 		
 		boolean encontre = false;
 		
 	try {	
 			BufferedReader br= new BufferedReader(new FileReader(path));
-		
 			String linea= br.readLine();
-			
 			
 			
 			while(linea != null) {
 				
-				String[] palabras= linea.split(" "); // ver que hacer con los puntos y comas.
-								
-				for(int j = 0; j< palabras.length ; j++) { // voy leyendo la linea y saco palabras.
-					
-					String palabra= palabras[j];
-					
-					totalPalabras= totalPalabras+1;  // cuenta todas las palabras
-					
-					for( int i= 0; i < palabrasArchivo.keySet().toArray().length && !encontre; i++) { //recorro las claves contenidas en el map
+				LinkedList<String> palabras = soloPalabra(linea);
+				int j=0;
 				
+				while ( j< palabras.size()) {
+			
+					String palabra = palabras.get(j);
+					totalPalabras= totalPalabras+1;  
+					
+					for( int i= 0; i < palabrasArchivo.keySet().toArray().length && !encontre; i++) { 
+				
+					
 						String key= (String) palabrasArchivo.keySet().toArray()[i];
 						char arrayPalabra[ ] = palabra.toCharArray();
 						char arrayKey[] = key.toCharArray();
-						
-						
+												
+					
 						if ( arrayPalabra.length == arrayKey.length ) {
 							
 							encontre = sonIguales(arrayPalabra,arrayKey);
 													
 							if( encontre ) {
-								int valor= palabrasArchivo.get(key); // retorna el valor que tiene la clave
-								palabrasArchivo.replace(key, valor+1); // reemplazo y cargo el nuevo valor
-
 								
+								int valor= palabrasArchivo.get(key); 
+								palabrasArchivo.replace(key, valor+1);
 							}
 						}
 	
 					}
 					
 					if (!encontre) { 
-		
+					
 						palabrasArchivo.put(palabra,1); 
-						
-			
 					}
 					
 					encontre= false;
+					j++;
 				} 
 				
 				linea= br.readLine(); 
@@ -110,14 +83,16 @@ public class Archivo extends Component {
 			e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
+				}
 	}
-
-	}
-
 
 	private boolean sonIguales (char [] arrayPalabra, char[]arrayKey) {
 	
 		boolean ret= true;
+		
+	
+		if( arrayPalabra.length != 0 ||  arrayKey.length !=0 ) {
+			
 		char a1 = Character.toLowerCase( arrayPalabra[0]);
 		char a2 = Character.toUpperCase( arrayPalabra[0]);
 		
@@ -133,17 +108,60 @@ public class Archivo extends Component {
 				}
 			}
 			
-		} else ret  = false;
+			} else ret  = false;
+		} else ret= false;
 		
 		return ret;
 	}
 	
-
+	private LinkedList<String> soloPalabra(String cadena) {
+			
+		boolean s = true;
+		char[] c = cadena.toCharArray();
+		LinkedList<String> palabra = new LinkedList<String>();
+		int i=0;
+		
+		while (i<c.length ) {
+			
+			String p="";
+			
+			for ( ; ( s && i<c.length); i++) {
+				
+				char leido = c[i];
+				System.out.println("leido: "+leido);
+				if( esCaracterValido( leido )) {
+					
+					p+= Character.toString(leido);	
+					
+				} else s = false;
+				
+			}
+				
+			s = true;
+			
+			if( p!= "") {
+			
+				palabra.add(p);	
+			}
+		
+		}
+	return palabra;
 	
+	}
+		
+	private boolean esCaracterValido(char c) {
+		
+		boolean ret = true;
+		
+		 if (! (   (c>= 'Ç' && c<='Ü' ) || (c>= 'á' && c<='Ñ' ) || (c>= 'Á' && c<='À' ) || (c== 'ã' || c=='Ã' ) || (c>= 'ð' && c<='Ï' ) || (c>= 'Ú' && c<='Ý' ) || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') )   ) { 
+			 ret = false;
+			 System.out.println("no valido: "+ret);
+		 }
+		return ret;
+	}
 	
-	
-	
-	
-	
+	public String getPath() {
+		return path;
+	}
 	
 }
