@@ -22,7 +22,6 @@ public class Archivo extends Component {
 		
 		GestionPalabras gp = new GestionPalabras ();
 		gp.ordenarHash(palabrasArchivo);
-		System.out.println(" es arch que tamaño tiene? "+palabrasArchivo.size());
 		return gp.listaPalabras(cantidad, cantidadPalabrasArchivo);	
 	}
 		
@@ -159,7 +158,6 @@ public class Archivo extends Component {
 		
 		 if (! (   (c>= 'Ç' && c<='Ü' ) || (c>= 'á' && c<='Ñ' ) || (c>= 'Á' && c<='À' ) || (c== 'ã' || c=='Ã' ) || (c>= 'ð' && c<='Ï' ) || (c>= 'Ú' && c<='Ý' ) || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') )   ) { 
 			 ret = false;
-			// System.out.println("no valido: "+ret);
 		 }
 		return ret;
 	}

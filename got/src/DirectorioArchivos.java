@@ -45,7 +45,6 @@ public class DirectorioArchivos extends Component{
 		
 		GestionPalabras gp = new GestionPalabras();
 		gp.ordenarHash(palabrasArchivo);
-		System.out.println(" es direc que tamaño tiene? "+palabrasArchivo.size());
 		
 		return gp.listaPalabras(cantidad,cantidadPalabrasCarpeta);
 	}

@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import java.awt.GridLayout;
@@ -75,28 +74,17 @@ public class Gui_WS extends JFrame {
 	 */
 	private void initialize() {
 		
-		
-		FileNameExtensionFilter f = new FileNameExtensionFilter("Solo archivos txt", "txt");
 		logica= new Logica();
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 526, 567);
+		setBounds(100, 100, 486, 567);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setLocationRelativeTo(null);
 		setContentPane(contentPane);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(100, 100,500, 1550);
-		contentPane.add(panel, BorderLayout.NORTH);
-		
-		titulo= new JLabel(" Winter is Coming");
-		titulo.setVerticalAlignment(SwingConstants.TOP);
-		titulo.setFont(new Font("Dialog", Font.PLAIN, 26));
-		titulo.setBounds(214, 0, 298, 38);
-		panel.add(titulo);
+
 		
 		panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.CENTER);
@@ -107,34 +95,12 @@ public class Gui_WS extends JFrame {
 		panel_3.setLayout(null);
 		
 		cargarJFileChooser = new JButton(traductor.obtenerPalabra(PalabrasClave.CARGAR)) ;
-		cargarJFileChooser.setBounds(206, 20, 152, 21);
+		cargarJFileChooser.setBounds(105, 20, 152, 21);
 		panel_3.add(cargarJFileChooser);
 		
-		
-		botonMostrarPrincipal = new JButton(traductor.obtenerPalabra(PalabrasClave.VER));
-		botonMostrarPrincipal.setBounds(218, 193, 115, 21);
-		botonMostrarPrincipal.setEnabled(false);
-		panel_3.add(botonMostrarPrincipal);
-		
-		
-		botonComenzar = new JButton(traductor.obtenerPalabra(PalabrasClave.COMENZAR));
-		botonComenzar.setBounds(223, 71, 124, 21);
-		botonComenzar.setEnabled(false);
-		panel_3.add(botonComenzar);
-		
-		tituloArchivos = new JLabel(traductor.obtenerPalabra(PalabrasClave.ARCHIVOS));
-		tituloArchivos.setBounds(10, 20, 85, 21);
-		panel_3.add(tituloArchivos);
-			
-		
-		visorArchivos = new JList();
-		visorArchivos.setBounds(20, 51, 198, 141);
-		panel_3.add(visorArchivos);
-		
-		scrollVisorArchivos = new JScrollPane(visorArchivos);
-		scrollVisorArchivos.setBounds(20, 48, 181, 166);
-		panel_3.add(scrollVisorArchivos);
-		
+		initTitulos();
+		initBotones();
+		initContenidoArchivos();
 		
 		textPane = new JTextPane();
 		textPane.setEditable(false);
@@ -144,20 +110,11 @@ public class Gui_WS extends JFrame {
 		panel_3.add(scrollTextPane);
 		
 		
-		
 		panel_5 = new JPanel();
 		panel_5.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 50));
 		contentPane.add(panel_5, BorderLayout.EAST);
 		
-		comboBox = new JComboBox<String>();
-		comboBox.setEditable(true);
-		comboBox.setSize(1500, 900);
-		panel_5.add(comboBox);
-		
-	
-		comboBox.addItem("Ingles");
-		comboBox.addItem("Español");
-		comboBox.setEditable(false);
+		initComboBox();
 		
 		comboBox.addActionListener(new ActionListener() {
 	            
@@ -228,10 +185,9 @@ public class Gui_WS extends JFrame {
 				textPane.setText(palabrasCarpeta);
 				visorArchivos.setListData( ( String[] ) logica.cargarArchi() );
 				botonComenzar.setEnabled(false);
-				botonMostrarPrincipal.setEnabled(true);
-				
+				botonMostrarPrincipal.setEnabled(true);	
 			}
-	}
+		}
 		);
 		
 		botonMostrarPrincipal.addActionListener(new ActionListener() {
@@ -259,8 +215,20 @@ public class Gui_WS extends JFrame {
 			
 		});
 		
+	}
 	
-	
+	private void initBotones() {
+		
+		botonMostrarPrincipal = new JButton(traductor.obtenerPalabra(PalabrasClave.VER));
+		botonMostrarPrincipal.setBounds(211, 193, 115, 21);
+		botonMostrarPrincipal.setEnabled(false);
+		panel_3.add(botonMostrarPrincipal);
+		
+		
+		botonComenzar = new JButton(traductor.obtenerPalabra(PalabrasClave.COMENZAR));
+		botonComenzar.setBounds(211, 61, 115, 21);
+		botonComenzar.setEnabled(false);
+		panel_3.add(botonComenzar);
 	}
 			
 	private void cambiarTitulos() {
@@ -270,4 +238,49 @@ public class Gui_WS extends JFrame {
 		botonComenzar.setText(traductor.obtenerPalabra(PalabrasClave.COMENZAR));
 		tituloArchivos.setText(traductor.obtenerPalabra(PalabrasClave.ARCHIVOS));
 	}
+
+	private void initTitulos() {
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(100, 100,500, 1550);
+		contentPane.add(panel, BorderLayout.NORTH);
+		
+		titulo= new JLabel(" Winter is Coming");
+		titulo.setVerticalAlignment(SwingConstants.TOP);
+		titulo.setFont(new Font("Dialog", Font.PLAIN, 26));
+		titulo.setBounds(214, 0, 298, 38);
+		panel.add(titulo);
+		
+		tituloArchivos = new JLabel(traductor.obtenerPalabra(PalabrasClave.ARCHIVOS));
+		tituloArchivos.setBounds(10, 20, 85, 21);
+		panel_3.add(tituloArchivos);
+			
+		
+	}
+
+	private void initContenidoArchivos() {
+		
+		visorArchivos = new JList<String>();
+		visorArchivos.setBounds(20, 51, 198, 141);
+		panel_3.add(visorArchivos);
+		
+		scrollVisorArchivos = new JScrollPane(visorArchivos);
+		scrollVisorArchivos.setBounds(20, 48, 181, 166);
+		panel_3.add(scrollVisorArchivos);
+		
+	}
+
+	private void initComboBox() {
+		
+		comboBox = new JComboBox<String>();
+		comboBox.setEditable(true);
+		comboBox.setSize(1500, 900);
+		panel_5.add(comboBox);
+		
+	
+		comboBox.addItem("Ingles");
+		comboBox.addItem("Español");
+		comboBox.setEditable(false);
+	}
 }
+

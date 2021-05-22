@@ -41,9 +41,7 @@ public class GestionPalabras {
 			 masUsadas+= entrada.getKey()+ " aparece un total de: "+ porcentaje( entrada.getValue(), cantidadPalabrasCarpeta)+" % ";
 			 masUsadas+= '\n';
 			 index= index+1;
-			 
-			 System.out.println("clave: "+entrada.getKey()+" valor: "+entrada.getValue());
-			 System.out.println("que tamalo tengo aca: "+lista.size());
+
 		}
 		return masUsadas;
 
