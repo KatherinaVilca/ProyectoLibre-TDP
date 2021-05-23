@@ -25,12 +25,12 @@ public class Traductor {
 	
 	public void changeIngles() {
 		
-		 tr = new TraductorIngles();
+		 tr = TraductorIngles.getInstance();
 	}
 	
 	public void changeEspañol() {
 		
-		tr= new TraductorEspañol();	
+		tr= TraductorEspañol.getInstance();	
 	
 	}
 }

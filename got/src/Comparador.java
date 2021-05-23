@@ -3,7 +3,8 @@ package src;
 import java.util.Comparator;
 import java.util.Map;
 
-public class Comparador implements Comparator {
+@SuppressWarnings("hiding")
+public class Comparador<Object> implements Comparator<Object> {
 	
 	
 	public Comparador(){

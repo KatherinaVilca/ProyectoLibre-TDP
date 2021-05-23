@@ -2,8 +2,6 @@ package src;
 import java.io.File;
 import java.util.LinkedList;
 
-import javax.swing.filechooser.FileFilter;
-
 public class FiltroTXT {
 	
 	public LinkedList<Archivo> accept (File fichero) {

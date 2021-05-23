@@ -1,9 +1,4 @@
 package src;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,11 +16,10 @@ public class GestionPalabras {
 	}
 	
 
-	@SuppressWarnings("unchecked")
 	public void ordenarHash( HashMap<String,Integer> palabrasArchivo){
 		
 		lista= new LinkedList<Map.Entry<String, Integer>> (palabrasArchivo.entrySet());
-		Collections.sort(lista, new Comparador() );
+		Collections.sort(lista, new Comparador<Object>() );
 
 	}
 	
@@ -41,8 +35,9 @@ public class GestionPalabras {
 			 masUsadas+= entrada.getKey()+ " aparece un total de: "+ porcentaje( entrada.getValue(), cantidadPalabrasCarpeta)+" % ";
 			 masUsadas+= '\n';
 			 index= index+1;
-
+			 
 		}
+	
 		return masUsadas;
 
 	}

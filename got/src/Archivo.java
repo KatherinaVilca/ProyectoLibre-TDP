@@ -22,6 +22,7 @@ public class Archivo extends Component {
 		
 		GestionPalabras gp = new GestionPalabras ();
 		gp.ordenarHash(palabrasArchivo);
+		//System.out.println("esta lista tiene "+cantidadPalabrasArchivo);
 		return gp.listaPalabras(cantidad, cantidadPalabrasArchivo);	
 	}
 		
@@ -53,17 +54,20 @@ public class Archivo extends Component {
 						char arrayKey[] = key.toCharArray();
 												
 					
-						if ( arrayPalabra.length == arrayKey.length ) {
+						if ( !( arrayPalabra.length == arrayKey.length )) {
+	
+							continue;
+						}
+						
+						encontre = sonIguales(arrayPalabra,arrayKey);
+						
+						if( !encontre ) {
 							
-							encontre = sonIguales(arrayPalabra,arrayKey);
-													
-							if( encontre ) {
-								
-								int valor= palabrasArchivo.get(key); 
-								palabrasArchivo.replace(key, valor+1);
-							}
+							continue;
 						}
 	
+						int valor= palabrasArchivo.get(key); 
+						palabrasArchivo.replace(key, valor+1);
 					}
 					
 					if (!encontre) { 
@@ -131,7 +135,7 @@ public class Archivo extends Component {
 			for ( ; ( s && i<c.length); i++) {
 				
 				char leido = c[i];
-				//System.out.println("leido: "+leido);
+				
 				if( esCaracterValido( leido )) {
 					
 					p+= Character.toString(leido);	

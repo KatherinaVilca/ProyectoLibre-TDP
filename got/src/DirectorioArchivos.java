@@ -35,7 +35,7 @@ public class DirectorioArchivos extends Component{
 		for( int h=0; h<arch.size(); h++) {
 			
 			Archivo a= arch.get(h);
-			cantidadPalabras = a.cargarPalabras(palabrasArchivo);
+			cantidadPalabras = a.cargarPalabras(palabrasArchivo)+ cantidadPalabras;
 
 		}
 		return cantidadPalabras;

@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 
+
+@SuppressWarnings("serial")
 public class Gui_WS extends JFrame {
 
 	private JPanel contentPane;
@@ -76,44 +78,20 @@ public class Gui_WS extends JFrame {
 		
 		logica= new Logica();
 		
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 486, 567);
+		setBounds(100, 100, 497, 567);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setLocationRelativeTo(null);
 		setContentPane(contentPane);
 
-		
-		panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.CENTER);
-		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		panel_3 = new JPanel();
-		panel_2.add(panel_3);
-		panel_3.setLayout(null);
-		
-		cargarJFileChooser = new JButton(traductor.obtenerPalabra(PalabrasClave.CARGAR)) ;
-		cargarJFileChooser.setBounds(105, 20, 152, 21);
-		panel_3.add(cargarJFileChooser);
-		
+		initSubPaneles();
+		initJFileChooser();
 		initTitulos();
 		initBotones();
 		initContenidoArchivos();
-		
-		textPane = new JTextPane();
-		textPane.setEditable(false);
-		panel_2.add(textPane);		
-		scrollTextPane = new JScrollPane(textPane);
-		scrollTextPane.setBounds(20, 238, 228, 228);
-		panel_3.add(scrollTextPane);
-		
-		
-		panel_5 = new JPanel();
-		panel_5.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 50));
-		contentPane.add(panel_5, BorderLayout.EAST);
-		
+		initComponentTextPane();		
 		initComboBox();
 		
 		comboBox.addActionListener(new ActionListener() {
@@ -149,31 +127,32 @@ public class Gui_WS extends JFrame {
 			
 				JFileChooser selector = new JFileChooser();
 				textPane.setText("");
-							
 				selector.setCurrentDirectory(new File("."));
 				selector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 						       
 		        int respuesta = selector.showOpenDialog(Gui_WS.this);
 		      
-		        if (respuesta == JFileChooser.APPROVE_OPTION) {
+		        if ( !(respuesta == JFileChooser.APPROVE_OPTION) ) {
 		        	
-		           elegido = selector.getSelectedFile();
-		           botonMostrarPrincipal.setEnabled(false);
+		          return;
+		        }
+		        
+		        elegido = selector.getSelectedFile();
+		        botonMostrarPrincipal.setEnabled(false);
 		        		        
-		          
-		          if ( logica.esValido(elegido) ){
-		        	  
+	          
+		        if ( logica.esValido(elegido) ){
+	        	  
 		        	  palabrasCarpeta = logica.obtenerPalabrasMasUsadasDirectorio(respuesta);
 		        	  botonComenzar.setEnabled(true);
 		        	  botonMostrarPrincipal.setEnabled(false);
 		        	  scrollVisorArchivos.setVisible(false);
 		        	  
-		          }
-		          else {
+		        }
+		        else {
 		        	  	botonComenzar.setEnabled(false);
 		          		JOptionPane.showMessageDialog(null, "Seleccione una carpeta que contenga archivos txt", "Error", respuesta);
-		          		} 
-		        }
+	          		} 
 			}
 		});
 		
@@ -224,11 +203,21 @@ public class Gui_WS extends JFrame {
 		botonMostrarPrincipal.setEnabled(false);
 		panel_3.add(botonMostrarPrincipal);
 		
-		
 		botonComenzar = new JButton(traductor.obtenerPalabra(PalabrasClave.COMENZAR));
 		botonComenzar.setBounds(211, 61, 115, 21);
 		botonComenzar.setEnabled(false);
 		panel_3.add(botonComenzar);
+	}
+	
+	private void initSubPaneles() {
+		
+		panel_2 = new JPanel();
+		contentPane.add(panel_2, BorderLayout.CENTER);
+		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		panel_3 = new JPanel();
+		panel_2.add(panel_3);
+		panel_3.setLayout(null);
 	}
 			
 	private void cambiarTitulos() {
@@ -238,7 +227,17 @@ public class Gui_WS extends JFrame {
 		botonComenzar.setText(traductor.obtenerPalabra(PalabrasClave.COMENZAR));
 		tituloArchivos.setText(traductor.obtenerPalabra(PalabrasClave.ARCHIVOS));
 	}
-
+	
+	private void initComponentTextPane() {
+		
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		panel_2.add(textPane);		
+		scrollTextPane = new JScrollPane(textPane);
+		scrollTextPane.setBounds(20, 238, 228, 228);
+		panel_3.add(scrollTextPane);
+	}
+	
 	private void initTitulos() {
 		
 		JPanel panel = new JPanel();
@@ -255,7 +254,6 @@ public class Gui_WS extends JFrame {
 		tituloArchivos.setBounds(10, 20, 85, 21);
 		panel_3.add(tituloArchivos);
 			
-		
 	}
 
 	private void initContenidoArchivos() {
@@ -272,6 +270,10 @@ public class Gui_WS extends JFrame {
 
 	private void initComboBox() {
 		
+		panel_5 = new JPanel();
+		panel_5.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 50));
+		contentPane.add(panel_5, BorderLayout.EAST);
+		
 		comboBox = new JComboBox<String>();
 		comboBox.setEditable(true);
 		comboBox.setSize(1500, 900);
@@ -281,6 +283,13 @@ public class Gui_WS extends JFrame {
 		comboBox.addItem("Ingles");
 		comboBox.addItem("Español");
 		comboBox.setEditable(false);
+	}
+	
+	private void initJFileChooser() {
+		
+		cargarJFileChooser = new JButton(traductor.obtenerPalabra(PalabrasClave.CARGAR)) ;
+		cargarJFileChooser.setBounds(105, 20, 152, 21);
+		panel_3.add(cargarJFileChooser);
 	}
 }
 
